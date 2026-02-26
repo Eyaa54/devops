@@ -28,6 +28,15 @@ pipeline {
             }
         }
         
+        stage('Package') {
+            steps {
+                echo '===== Création du JAR ====='
+                sh 'mvn package -DskipTests'
+                # Vérifier que le JAR existe
+                sh 'ls -la target/*.jar'
+            }
+        }
+
         stage('SONARQUBE') {
             environment {
                 SONAR_HOST_URL = 'http://192.168.56.101:9000/'
@@ -36,13 +45,6 @@ pipeline {
             steps {
                 echo '===== Analyse qualité du code avec SonarQube ====='
                 sh 'mvn sonar:sonar -Dsonar.projectKey=devops -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.token=$SONAR_AUTH_TOKEN'
-            }
-        }
-        
-        stage('Package') {
-            steps {
-                echo '===== Création du JAR ====='
-                sh 'mvn package -DskipTests'
             }
         }
         
