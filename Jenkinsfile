@@ -32,7 +32,6 @@ pipeline {
             steps {
                 echo '===== Création du JAR ====='
                 sh 'mvn package -DskipTests'
-                # Vérifier que le JAR existe
                 sh 'ls -la target/*.jar'
             }
         }
