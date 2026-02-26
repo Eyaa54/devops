@@ -1,15 +1,13 @@
 FROM ubuntu:22.04
 
-# Installer Java 21
 RUN apt-get update && \
-    apt-get install -y openjdk-21-jre-headless && \
+    apt-get install -y openjdk-8-jre-headless && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Spring Boot JAR (nom différent !)
-COPY target/devops-0.0.1-SNAPSHOT.jar app.jar
+COPY target/timesheet-devops-1.0.0.jar app.jar
 
 EXPOSE 8080
 
